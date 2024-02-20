@@ -1,10 +1,10 @@
-// const frutas = ['manga', 'uvas','pêssego']
+const frutas = ['manga', 'uvas','pêssego']
 
-// console.log(frutas[2])
-
-
+console.log(frutas[2])
 
 
+
+//DESAFIO
 const prompt = require('prompt-sync')()
 let frutas1 = []
 
