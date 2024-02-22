@@ -3,18 +3,21 @@ Crie um array chamado frutas contendo três frutas diferentes. Em seguida, impri
 Desafio: utilize a biblioteca prompt-sync para receber cada uma das 3 frutas
  */
 
+const aarfrutas = ['manga', 'uvas','pêssego']
+
+console.log(aarfrutas[2])
 
 
 //DESAFIO
 const prompt = require('prompt-sync')()
-let frutas1 = []
+let frutas = []
 
 for(i = 0; i < 3; i++){
     
     const add_fruta = prompt('Digite uma fruta: ')
 
-    frutas1.push(add_fruta)
+    frutas.push(add_fruta)
 }
 
 
-console.log(frutas1[2])
+console.log(frutas[2])

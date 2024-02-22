@@ -16,15 +16,18 @@ const prompt = require('prompt-sync')()
 let j = 0;
 let numerosPrompt = []
 
-while(j < 5){
+for(j = 0;j < 5; j++){  //Loop para pedir 5 números
 
     const pergunta = prompt("Digite um número: ")
     numerosPrompt.push(pergunta)
-    
-    j++
+
 }
 
-console.log(numerosPrompt)
+numerosPrompt.map(function(n){  //ira mostrar um numero de cada vez
+
+    console.log(n)
+})
+
 
 
 
