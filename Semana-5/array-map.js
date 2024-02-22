@@ -3,8 +3,7 @@ Utilizando o array numeros utilizado nos exercícios anteriores, crie um novo ar
  */
 const numeros = [7, 30, 25, 20, 50]
 
-const quadrado = numeros.map(q => {
-    return q **2
-})
+const quadrado = numeros.map(q =>  q **2
+)
 
 console.log(quadrado)
