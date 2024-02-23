@@ -20,4 +20,4 @@ for(i = 0; i < 3; i++){
 }
 
 
-console.log(frutas1[2])
+console.log(frutas1[1])
