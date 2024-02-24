@@ -8,4 +8,4 @@ let somar = numeros.reduce((accm, numeroTotal) => {  // accm= acumulador e numer
     return accm + numeroTotal
 },0)
 
-console.log(somar)
+console.log(`O resultado da soma dos números é igual a: ${somar}`)

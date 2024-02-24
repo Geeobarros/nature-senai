@@ -5,7 +5,7 @@ Desafio: utilize a biblioteca prompt-sync para receber cada uma das 3 frutas
 
 const frutas = ['manga', 'uvas','pêssego']
 
-console.log(frutas[1])
+console.log(`A segunda fruta é: ${frutas[1]}`)
 
 
 //DESAFIO
@@ -20,4 +20,4 @@ for(i = 0; i < 3; i++){
 }
 
 
-console.log(frutas1[1])
+console.log(`A segunda fruta é: ${frutas[1]}`)

@@ -9,4 +9,4 @@ const pares  = numeros.filter(n => {
     }
 })
 
-console.log(pares)
+console.log(`Os números pares são: ${pares}`)

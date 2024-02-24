@@ -6,4 +6,4 @@ const numerosOrdenados = [7, 30, 25, 20, 50]
 
 numerosOrdenados.sort((a,b) => a - b)
 
-console.log(numerosOrdenados)
+console.log(`A sequência dos números em ordem: ${numerosOrdenados}`)
