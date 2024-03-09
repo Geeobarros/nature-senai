@@ -33,7 +33,7 @@ class Produto{  //ex.1
     }
 
 }
-let loja1 = new Produto('Caderno 10 matérias', 20, 50)
+let caderno = new Produto('Caderno 10 matérias', 20, 50)
 
 
 
