@@ -24,7 +24,7 @@ class Produto{  //ex.1
     }
 
     mostrarEstoque(){ //ex.5
-        console.log(`O produto ${this.nome} possui ${this.quantidade} disponíveis.`)
+        console.log(`Produto: ${this.nome}. \nQuantidade: ${this.quantidade} disponíveis. \nPreço: ${this.preco}.`)
     }
 
     atualizarPreco(novoValor){ //ex.6
@@ -34,6 +34,7 @@ class Produto{  //ex.1
 
 }
 let caderno = new Produto('Caderno 10 matérias', 20, 50)
+caderno.mostrarEstoque()
 
 
 
