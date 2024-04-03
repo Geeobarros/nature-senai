@@ -71,7 +71,6 @@ app.post('/users', horaComMiddleware, (req, res) => {
 
    user.id = users.length + 1;
    users.push(user)
-   console.log(users)
    res.status(201).send('Usuário criado com sucesso')
 });
 
@@ -90,7 +89,6 @@ app.get('/users/:id', horaComMiddleware, (req, res) =>{
     try {
         const { id } = req.params
         const user = users.find(usr => usr.id === parseInt(id)); //Procura o usuario
-        console.log(user)
         if (user === undefined){
             throw new Error('ID não encontrado')
         }else { 
@@ -140,7 +138,6 @@ app.delete('/users/:id', horaComMiddleware, (req, res) => {
         } else {
             users.splice(index, 1)
             res.status(200).send('Usuário excluído com sucesso')
-            console.log(users)
         }
     } catch (error){
         res.status(404).send("Not found" + error)
