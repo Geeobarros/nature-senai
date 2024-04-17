@@ -1,12 +1,13 @@
 const { Router } = require("express")
 const Aluno = require("../models/aluno") //importando do model Aluno
 const Curso = require("../models/Curso")
+const Professor = require("../models/Professor")
 const { error } = require("console")
 const { where } = require("sequelize")
 
 const routes = new Router()
 
-
+                                    //--------------------ROTA PROFESSOR-----------------
 //Criando rota para criar cursos Ex: 1
 routes.post("/cursos", async (req, res) => {
     try {
@@ -36,26 +37,70 @@ routes.post("/cursos", async (req, res) => {
 })
 
 //Criando rota para listar todos cursos EX: 2
-routes.get('/cursos', async(req, res) =>{
-    const nome = req.params  
+// routes.get('/cursos', async(req, res) =>{
+//     const nome = req.params  
 
-   const cursos = await Curso.findAll()
+//    const cursos = await Curso.findAll()
     
-    res.json(cursos)
-})
+//     res.json(cursos)
+// })
 
-//rota get para lista cursos pelo nome EX: 3
-routes.get('/cursos', async(req, res) =>{
-    const nome = req.query.nome || ''   //Dai uso lá no query params no postman
+//listar por id especifico
+// routes.get('/cursos/:id', async(req, res) => {
+//     try {
+//         const { id } = req.params
+//         const curso = await Curso.findByPk(id)
 
-   const cursos = await Curso.findAll({
-        where: {
-            nome: nome
+//         if(!curso){
+//             return res.status(404).json({mensagem: 'curso não encontrado'})
+//         }
+
+//         res.json(curso)
+
+        
+//     } catch (error) {
+//         res.status(500).json({messagem: 'não foi possível lista o curso específico'})
+        
+//     }
+// })
+//rota get para lista cursos pelo nome POR QUERY PARAMS EX: 3
+// routes.get('/cursos', async(req, res) =>{
+//     const nome = req.query.nome || ''   //pega pelo nome ou deixa vazio
+//Dai uso lá no query params no postman
+
+//    const cursos = await Curso.findAll({ //senão mostra todos
+//         where: {
+//             nome: nome
+//         }
+//     })
+
+//     res.json(cursos)
+// })
+
+//OU DA FORMA ABAIXO DÁ O MESMO RESULTADO
+
+routes.get('/cursos', async (req, res)=> {
+    try {
+        let params = {}
+    
+        if(req.query.nome) {
+            params = {...params, nome:req.query.nome}
         }
-    })
+    
+        const cursos = await Curso.findAll({
+            where: params
+            
+        })
+    
+        res.json({cursos})
+        
+    } catch (error) {
+        res.status(500).json({error: 'Não é possível listar o curso'})
+    }
 
-    res.json(cursos)
 })
+
+
 
 
 
@@ -68,11 +113,13 @@ routes.put('/cursos/:id', async (req, res) => {
         const curso = await Curso.findByPk(id)
     
         if(!id) {
-            return res.status(404).json({mensagem: 'Curso não encontrado'})
+            return res.status(404).json({mensagem: 'Id do Curso não encontrado'})
         }
         
         curso.update(req.body)
+
         await curso.save()
+        
         res.json(curso)
         
         
@@ -107,6 +154,8 @@ routes.delete('/cursos/:id', async(req, res) =>{
     }
 })
 
+
+                                    //----------------------ROTA ALUNOS-------------------
 //Criando rota para cadastrar alunos 
 routes.post("/alunos", async (req, res) => { //insert into 
    try {
@@ -137,11 +186,30 @@ routes.post("/alunos", async (req, res) => { //insert into
    }
 })
 
-////Criando rota para listar alunos
+////Criando rota para listar todos os alunos
 routes.get("/alunos", async (req, res) => {  //select * from alunos
 
     const alunos = await Aluno.findAll()
     res.json(alunos)
+})
+
+//listar aluno especifico
+routes.get('/alunos/:id', async(req, res) => {
+    try {
+        const { id } = req.params
+        const aluno = await Aluno.findByPk(id)
+
+        if(!aluno){
+            return res.status(404).json({mensagem: 'Aluno não encontrado'})
+        }
+
+        res.json(aluno)
+
+        
+    } catch (error) {
+        res.status(500).json({messagem: 'não foi possível lista o aluno específico'})
+        
+    }
 })
 
 //rota put para atualizar aluno
@@ -172,28 +240,112 @@ routes.delete('/alunos/:id', async (req, res)=>{
     try {
         await Aluno.destroy({
             where:{
-                id
+                id: id
             }
         })
-        return res.status(204).json({})
+        res.status(204).json({})
         
     } catch (error) {
         
         if(!id){
-            return res.status(404).json({errormessage})
+            return res.status(404).json(error.message)
         }
     }
-    
+})
 
+                                    //--------------------ROTA PROFESSOR-----------------
+//EX: 6
+//rota criar professor
+routes.post('/professores', async (req, res) =>{
+    try {
+        const { curso, celular, salario } = req.body
+        const nome = req.body
 
+        if(!nome) {
+            return res.status(400).json({message: 'O Nome não foi inserido'})
+        }
+        if(!curso){
+            return res.status(400).json({message: 'O Curso não foi inserido'})
+        }
+        if(!celular){
+            return res.status(400).json({message: 'O Celular não foi inserido'})
+        }
+        if(!salario){
+            return res.status(400).json({message: 'O Salário não foi inserido'})
+        }
+
+        const professor = await Professor.create(
+            nome,
+            curso,
+            celular,
+            salario
+        )
+        res.status(201).json({ professor })
+    } catch (error) {
+        console.log(error.message)
+        res.status(500).json({error: 'Não foi possível cadastrar professor'})        
+    }
+})
+
+//rota listar professor
+routes.get('/professores', async(req, res) =>{
+    try {
+        let params = {}
+
+        if(req.query.id){
+            params = {...params, id:req.query.id}
+        }
+        if(req.query.nome){
+            params = {...params, nome: req.query.nome}
+        }
+
+        const professores = await Professor.findAll({
+            where: params
+        })
+        res.json({professores})
+    } catch (error) {
+        res.status(500).json({error: 'Não foi possível listar professores'})
+    }
 
 
 })
 
+//Atualizar por id (route params)
+routes.put('/professor/:id', async(req, res) =>{
+    try {
+        const id = req.params.id
+        const professor = await Professor.findByPk(id)
 
+        if(!id){
+            return res.status(404).json({message: 'Professor não encontrado'})
+        }
 
+        professor.update(req.body)
+        await professor.save()
+        res.json(professor)
+    } catch (error) {
+        res.status(500).json({message: 'Não foi possível atualizar professor'})
+    }
+})
 
-
+//Deletar por id (route params)
+routes.delete('/professor/:id', async (req, res)=>{
+    const id = req.params.id
+    try {
+        await Professor.destroy({
+            where:{
+                id: id
+            }
+        })
+        res.status(204).json({})
+        
+    } catch (error) {
+        
+        if(!id){
+            return res.status(404).json(error.message)
+        }
+    }
+})
 
 
 module.exports = routes

@@ -11,8 +11,6 @@ const Aluno = connection.define('alunos', {  //nome da tabela que quer acessar
     celular: {
         type: DataTypes.STRING
     }
-    
-
 })
 
 module.exports = Aluno  //exporta para poder usar ela e interagir com o BD, ela represanta a definição da tabela
