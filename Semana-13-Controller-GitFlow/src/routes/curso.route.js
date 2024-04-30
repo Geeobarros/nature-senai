@@ -9,7 +9,6 @@ const cursoRoutes = new Router()
 
 
 
-
 cursoRoutes.post("/", async (req, res) => {
     try {
         const nome = req.body.nome
@@ -37,7 +36,6 @@ cursoRoutes.post("/", async (req, res) => {
     }
 })
 
-
 cursoRoutes.get('/', async(req, res) =>{
     const nome = req.params  
 
@@ -45,7 +43,6 @@ cursoRoutes.get('/', async(req, res) =>{
     
     res.json(cursos)
 })
-
 
 cursoRoutes.get('/', async(req, res) =>{
     const nome = req.query.nome || ''   //Dai uso lá no query params no postman
