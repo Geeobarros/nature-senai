@@ -1,6 +1,6 @@
 const Curso = require("../models/Curso")
 
-
+//ex:2
 class CursoController {
     async listar(req, res){
         try {
